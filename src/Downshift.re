@@ -13,7 +13,7 @@ type otherStateToSet = Js.Dict.t(string);
 
 type cb = unit => unit;
 
-type itemToString = item => string;
+type itemToString = Js.Nullable.t(item) => string;
 
 type selectedItemChanged = (item, item) => bool;
 
@@ -90,7 +90,7 @@ module ControllerStateAndHelpers = {
     "";
   [@bs.send] external clearSelection : (t, ~cb: cb=?, unit) => unit = "";
   [@bs.send] external clearItems : (t, unit) => unit = "";
-  [@bs.send] external itemToString : (t, item) => unit = "";
+  [@bs.send] external itemToString : (t, Js.Nullable.t(item)) => unit = "";
   /* State */
   [@bs.get] external highlightedIndex : t => Js.Nullable.t(int) = "";
   [@bs.get] external inputValue : t => Js.Nullable.t(string) = "";

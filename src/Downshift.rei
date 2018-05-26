@@ -10,7 +10,7 @@ type otherStateToSet = Js.Dict.t(string);
 
 type cb = unit => unit;
 
-type itemToString = item => string;
+type itemToString = Js.Nullable.t(item) => string;
 
 type selectedItemChanged = (item, item) => bool;
 
@@ -23,7 +23,7 @@ type a11yStatusMessageOptions = {
   "itemToString": itemToString,
   "previousResultCount": int,
   "resultCount": int,
-  "selectedItem": item
+  "selectedItem": item,
 };
 
 type getA11yStatusMessage = a11yStatusMessageOptions => string;
@@ -33,7 +33,7 @@ type rootPropsOptions = {. "refKey": string};
 type itemPropsOptions = {
   .
   "index": Js.Nullable.t(int),
-  "item": any
+  "item": any,
 };
 
 module ControllerStateAndHelpers: {
@@ -85,7 +85,7 @@ module ControllerStateAndHelpers: {
     "";
   [@bs.send] external clearSelection : (t, ~cb: cb=?, unit) => unit = "";
   [@bs.send] external clearItems : (t, unit) => unit = "";
-  [@bs.send] external itemToString : (t, item) => unit = "";
+  [@bs.send] external itemToString : (t, Js.Nullable.t(item)) => unit = "";
   [@bs.get] external highlightedIndex : t => Js.Nullable.t(int) = "";
   [@bs.get] external inputValue : t => Js.Nullable.t(string) = "";
   [@bs.get] external isOpen : t => bool = "";
@@ -99,7 +99,7 @@ type stateChangeOptions = {
   "highlightedIndex": int,
   "inputValue": string,
   "isOpen": bool,
-  "selectedItem": item
+  "selectedItem": item,
 };
 
 type onChange = (any, ControllerStateAndHelpers.t) => unit;
@@ -139,7 +139,7 @@ let make:
   ReasonReact.component(
     ReasonReact.stateless,
     ReasonReact.noRetainedProps,
-    ReasonReact.actionless
+    ReasonReact.actionless,
   );
 
 [@bs.module "downshift"]
